@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>The Shard Matrix</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marjon Musta — Selected Works, Novel & Interactive Portfolio</title>
+    
+    <!-- Google Fonts: Editorial Serif, Sleek Display & Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            /* Upgraded Highly Dynamic Color Palette */
+            --color-bg: #fdf9f0; /* Ultra-warm cream linen */
+            --color-dark: #090c0b; /* Deepest Forest Obsidian */
+            --color-accent: #e5a953; /* Bright rich brass gold */
+            --color-accent-dark: #a87232; /* Rich antique bronze */
+            --color-terracotta: #b74c26; /* Vibrant Tuscan terracotta */
+            --color-sunset: #d35d37; /* Sunset copper */
+            --color-merlot: #6b1f1f; /* Royal velvet Merlot */
+            --color-sage: #384d39; /* Deep alpine sage */
+            --color-accent-muted: #f6eed5; /* Rich sand glaze */
+            --color-card-bg: #ffffff; 
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-display: 'Playfair Display', serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --transition-slow: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: all 0.25s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--color-bg);
+            color: var(--color-dark);
+            overflow-x: hidden;
+            line-height: 1.7;
+            position: relative;
+        }
+
+        /* Ambient Fine Print Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: radial-gradient(rgba(183, 76, 38, 0.02) 1.5px, transparent 0);
+            background-size: 30px 30px;
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0.9;
+        }
+
+        /* Top Progress Bar */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--color-accent), var(--color-sunset), var(--color-merlot), var(--color-sage));
+            width: 0%;
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+
+        /* Fixed Navigation Header with Dynamic Border */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.8rem 5%;
+            z-index: 100;
+            background: rgba(253, 249, 240, 0.94);
+            backdrop-filter: blur(25px);
+            border-bottom: 2px solid rgba(183, 76, 38, 0.1);
+        }
+
+        .logo-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.9rem;
+            font-weight: 600;
+            letter-spacing: 5px;
+            text-decoration: none;
+            color: var(--color-dark);
+            text-transform: uppercase;
+            transition: var(--transition-fast);
+        }
+
+        .logo:hover {
+            color: var(--color-sunset);
+        }
+
+        .logo-sub {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--color-sage);
+            font-weight: 800;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-dark);
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            transition: var(--transition-fast);
+            position: relative;
+            padding-bottom: 6px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-sunset);
+            transition: var(--transition-slow);
+        }
+
+        .nav-links a:hover {
+            color: var(--color-sunset);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Active Nav Styling */
+        .nav-links a.active {
+            color: var(--color-sunset);
+        }
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Main Multi-page Container Layout */
+        main {
+            min-height: 100vh;
+            padding-top: 6rem;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Sections and Layout Grids */
+        section {
+            padding: 9rem 8%;
+            position: relative;
+        }
+
+        .section-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            color: var(--color-sunset);
+            margin-bottom: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 800;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 4.2rem;
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 4rem;
+            letter-spacing: -1px;
+            position: relative;
+        }
+
+        .section-title em {
+            font-family: var(--font-display);
+            font-style: italic;
+            color: var(--color-sunset);
+            position: relative;
+        }
+
+        .section-title em::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(229, 169, 83, 0.3);
+            z-index: -1;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 6rem;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .hero-title-main {
+            font-family: var(--font-display);
+            font-size: 6.8rem;
+            font-weight: 300;
+            line-height: 0.95;
+            margin-bottom: 2.5rem;
+            letter-spacing: -3px;
+        }
+
+        .hero-title-main em {
+            font-family: var(--font-serif);
+            font-style: italic;
+            color: var(--color-merlot);
+        }
+
+        .editorial-intro-block {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3.5rem;
+            border-top: 2px solid rgba(183, 76, 38, 0.15);
+            border-bottom: 2px solid rgba(183, 76, 38, 0.15);
+            padding: 2.5rem 0;
+        }
+
+        .editorial-intro-block p.highlight {
+            font-family: var(--font-serif);
+            font-size: 1.65rem;
+            line-height: 1.4;
+            color: var(--color-sage);
+            font-style: italic;
+            font-weight: 600;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 800px;
+            overflow: hidden;
+            box-shadow: 0 45px 95px rgba(183, 76, 38, 0.2);
+            border: 2px solid rgba(183, 76, 38, 0.15);
+            border-radius: 6px;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(105%);
+            transition: var(--transition-slow);
+        }
+
+        .hero-image-wrapper:hover .hero-image {
+            transform: scale(1.05);
+        }
+
+        .hero-overlay-card {
+            position: absolute;
+            bottom: 3rem;
+            left: 3rem;
+            right: 3rem;
+            background: rgba(9, 12, 11, 0.96);
+            backdrop-filter: blur(15px);
+            padding: 3rem;
+            color: #fff;
+            border-left: 5px solid var(--color-accent);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-radius: 4px;
+        }
+
+        .hero-overlay-card h4 {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-style: italic;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Metadata Grid Styling (DHL Out - Language In) */
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3.5rem;
+            border-top: 1px dashed rgba(183, 76, 38, 0.25);
+            padding-top: 2.5rem;
+        }
+
+        .spec-item h5 {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--color-sage);
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        .spec-item p {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-merlot);
+        }
+
+        /* Buttons styling with Richer Sunset Gradient */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1.2rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            font-weight: 800;
+            padding: 1.5rem 3.5rem;
+            transition: var(--transition-slow);
+            box-shadow: 0 10px 30px rgba(183, 76, 38, 0.2);
+            border-radius: 4px;
+        }
+
+        .btn-terracotta {
+            background: linear-gradient(135deg, var(--color-terracotta) 0%, var(--color-sunset) 100%);
+            color: #fff;
+            border: 1px solid var(--color-terracotta);
+        }
+
+        .btn-terracotta:hover {
+            background: transparent;
+            color: var(--color-terracotta);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(183, 76, 38, 0.3);
+        }
+
+        /* --- QUOTE MARGIN SPACES --- */
+        .quote-callout-strip {
+            background: linear-gradient(135deg, var(--color-merlot) 0%, var(--color-sage) 100%);
+            color: #fff;
+            padding: 7rem 8%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border-top: 3px solid var(--color-accent);
+            border-bottom: 3px solid var(--color-accent);
+        }
+
+        .quote-callout-strip::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle, rgba(229,169,83,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .quote-callout-strip blockquote {
+            font-family: var(--font-serif);
+            font-size: 2.9rem;
+            font-style: italic;
+            font-weight: 300;
+            max-width: 1100px;
+            line-height: 1.45;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-callout-strip cite {
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            font-style: normal;
+            font-weight: 800;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- BIOGRAPHY & EDUCATION GRID --- */
+        .bio-grid {
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            gap: 8rem;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .bio-image-wrapper {
+            width: 100%;
+            height: 800px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 30px 70px rgba(183, 76, 38, 0.12);
+            border: 2px solid rgba(183, 76, 38, 0.15);
+            border-radius: 6px;
+        }
+
+        .bio-image-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border: 20px solid var(--color-bg);
+            pointer-events: none;
+        }
+
+        .bio-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-slow);
+        }
+
+        .bio-content p {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: rgba(9, 12, 11, 0.88);
+            margin-bottom: 2rem;
+            line-height: 2;
+        }
+
+        /* Themes Grid */
+        .themes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .theme-card {
+            background-color: var(--color-card-bg);
+            padding: 4.5rem;
+            border-top: 5px solid var(--color-accent);
+            transition: var(--transition-slow);
+            box-shadow: 0 20px 50px rgba(183, 76, 38, 0.04);
+            border-radius: 6px;
+            border-left: 1px solid rgba(183,76,38,0.05);
+            border-right: 1px solid rgba(183,76,38,0.05);
+            border-bottom: 1px solid rgba(183,76,38,0.05);
+        }
+
+        .theme-card:hover {
+            transform: translateY(-10px);
+            border-top-color: var(--color-sunset);
+            box-shadow: 0 30px 60px rgba(183, 76, 38, 0.12);
+        }
+
+        .theme-card-num {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            color: var(--color-sunset);
+            font-weight: 600;
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        .theme-card h3 {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            color: var(--color-merlot);
+        }
+
+        /* NEW ELEMENT: MANUSCRIPT ARCHITECTURE DASHBOARD (Replaces Atmospheric Generator) */
+        .architecture-box {
+            background: linear-gradient(135deg, #101513 0%, #1c2521 100%);
+            padding: 5rem;
+            border-radius: 8px;
+            color: #fff;
+            box-shadow: 0 35px 70px rgba(0,0,0,0.25);
+            margin-top: 5rem;
+            border-left: 5px solid var(--color-accent);
+        }
+
+        .architecture-header {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 2rem;
+            margin-bottom: 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .architecture-header h4 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--color-accent);
+        }
+
+        .metric-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .metric-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .metric-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: rgba(255,255,255,0.7);
+            padding: 1.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: left;
+            transition: var(--transition-fast);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .metric-btn:hover, .metric-btn.active {
+            background: rgba(229, 169, 83, 0.1);
+            border-color: var(--color-accent);
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+        .metric-btn h5 {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            font-weight: 400;
+        }
+
+        .metric-visualizer {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 4rem;
+            border-radius: 6px;
+            border: 1px dashed rgba(255,255,255,0.1);
+            position: relative;
+        }
+
+        .progress-track {
+            background: rgba(255, 255, 255, 0.05);
+            height: 8px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 1.5rem;
+            position: relative;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--color-accent), var(--color-sunset));
+            height: 100%;
+            width: 85%; /* Dynamic init */
+            transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* --- THE NOVEL EXCERPTS READER (PAGE 2) --- */
+        .reader-container {
+            display: grid;
+            grid-template-columns: 0.85fr 1.15fr;
+            gap: 6rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .chapter-sidebar {
+            background: var(--color-accent-muted);
+            padding: 4.5rem;
+            border-radius: 6px;
+            height: fit-content;
+            box-shadow: inset 0 0 40px rgba(183, 76, 38, 0.08);
+            border: 1px solid rgba(183, 76, 38, 0.1);
+        }
+
+        .chapter-sidebar h3 {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            margin-bottom: 2.5rem;
+            color: var(--color-merlot);
+        }
+
+        .chapter-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .chapter-btn {
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(9, 12, 11, 0.65);
+            cursor: pointer;
+            padding: 1.2rem;
+            border-left: 3px solid transparent;
+            font-weight: 700;
+            transition: var(--transition-fast);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .chapter-btn:hover, .chapter-btn.active {
+            color: var(--color-sunset);
+            border-left-color: var(--color-sunset);
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .excerpt-viewer {
+            background: var(--color-card-bg);
+            padding: 6rem;
+            box-shadow: 0 40px 90px rgba(183, 76, 38, 0.08);
+            border-left: 6px solid var(--color-sage);
+            border-radius: 6px;
+            border-right: 1px solid rgba(183,76,38,0.05);
+            border-bottom: 1px solid rgba(183,76,38,0.05);
+        }
+
+        .excerpt-title {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            line-height: 1.1;
+            color: var(--color-merlot);
+        }
+
+        .excerpt-content p {
+            font-size: 1.15rem;
+            font-weight: 300;
+            line-height: 2.1;
+            margin-bottom: 2rem;
+            color: rgba(9, 12, 11, 0.88);
+        }
+
+        .excerpt-content p::first-letter {
+            font-family: var(--font-serif);
+            font-size: 3.8rem;
+            float: left;
+            margin-right: 0.8rem;
+            line-height: 0.85;
+            color: var(--color-sunset);
+            font-weight: bold;
+        }
+
+        /* --- CONTACT & COLLABORATION HUB (PAGE 3) --- */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .contact-info-panel h2 {
+            font-family: var(--font-serif);
+            font-size: 4.2rem;
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+            line-height: 1.1;
+            color: var(--color-merlot);
+        }
+
+        .info-card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .info-detail-item {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            background: var(--color-card-bg);
+            padding: 2rem;
+            border-radius: 6px;
+            box-shadow: 0 15px 35px rgba(183,76,38,0.05);
+            border-left: 5px solid var(--color-accent);
+            border-right: 1px solid rgba(183,76,38,0.05);
+            border-bottom: 1px solid rgba(183,76,38,0.05);
+        }
+
+        .info-icon-box {
+            background: var(--color-accent-muted);
+            color: var(--color-sunset);
+            padding: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info-detail-text h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--color-sage);
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        .info-detail-text p {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-dark);
+            font-weight: 500;
+        }
+
+        .form-card {
+            background-color: var(--color-card-bg);
+            padding: 6rem;
+            box-shadow: 0 40px 90px rgba(183, 76, 38, 0.1);
+            border-top: 6px solid var(--color-sunset);
+            border-radius: 6px;
+            border-left: 1px solid rgba(183,76,38,0.05);
+            border-right: 1px solid rgba(183,76,38,0.05);
+            border-bottom: 1px solid rgba(183,76,38,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 2.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--color-sage);
+        }
+
+        .form-input {
+            width: 100%;
+            background: var(--color-bg);
+            border: 2px solid rgba(183, 76, 38, 0.1);
+            padding: 1.2rem 1.8rem;
+            font-size: 1rem;
+            font-family: var(--font-sans);
+            outline: none;
+            transition: var(--transition-fast);
+            border-radius: 4px;
+        }
+
+        .form-input:focus {
+            border-color: var(--color-sunset);
+            background: #fff;
+            box-shadow: 0 0 15px rgba(183, 76, 38, 0.15);
+        }
+
+        /* Intermediary Landscape Photo Strips with Copper Filter */
+        .landscape-photo-strip {
+            height: 520px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            border-top: 3px solid var(--color-accent);
+            border-bottom: 3px solid var(--color-accent);
+        }
+
+        .landscape-photo-strip img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(108%) sepia(8%);
+        }
+
+        /* Language Hub Styling Updates */
+        .interactive-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            width: 100%;
+            background: var(--color-card-bg);
+            padding: 6rem;
+            box-shadow: 0 40px 100px rgba(183, 76, 38, 0.08);
+            border-radius: 8px;
+            border: 2px solid rgba(183, 76, 38, 0.1);
+        }
+
+        .interactive-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            margin-top: 4rem;
+        }
+
+        .trans-box {
+            background: var(--color-bg);
+            padding: 3.5rem;
+            border-top: 4px solid var(--color-accent);
+            border-radius: 6px;
+            box-shadow: 0 15px 35px rgba(183,76,38,0.03);
+        }
+
+        .trans-quote {
+            font-family: var(--font-serif);
+            font-size: 2.1rem;
+            font-weight: 300;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .btn-minimal {
+            background: transparent;
+            border: 2px solid rgba(183, 76, 38, 0.2);
+            padding: 0.9rem 2rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            cursor: pointer;
+            font-weight: 800;
+            transition: var(--transition-fast);
+            border-radius: 4px;
+        }
+
+        .btn-minimal.active, .btn-minimal:hover {
+            background: var(--color-dark);
+            color: #fff;
+            border-color: var(--color-dark);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--color-dark);
+            color: #fff;
+            padding: 8rem 8% 4rem 8%;
+            text-align: center;
+            border-top: 4px solid var(--color-sunset);
+        }
+
+        .footer-logo {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            font-weight: 300;
+            color: var(--color-accent);
+            margin-bottom: 2rem;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 3.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-nav a {
+            color: #dcdcd8;
+            text-decoration: none;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            transition: var(--transition-fast);
+        }
+
+        .footer-nav a:hover {
+            color: var(--color-accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 3rem;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: #aaa;
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 1100px) {
+            header {
+                padding: 1.5rem 5%;
+            }
+            .hero-grid, .bio-grid, .themes-grid, .reader-container, .contact-grid, .interactive-split, .editorial-intro-block, .spec-grid, .metric-split {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+            .hero-image-wrapper, .bio-image-wrapper {
+                height: 500px;
+            }
+            .hero-title-main {
+                font-size: 3.8rem;
+            }
+            section {
+                padding: 8rem 6%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Scroll Progress Indicator -->
+    <div id="progress-bar"></div>
+
+    <!-- Minimal Header Navigation -->
+    <header>
+        <div class="logo-group">
+            <a href="#" class="logo" onclick="switchPage('home')">Marjon Musta</a>
+            <span class="logo-sub">Selected Portfolios</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" id="nav-home" class="active" onclick="switchPage('home')">Home Portfolio</a></li>
+            <li><a href="#" id="nav-excerpts" onclick="switchPage('excerpts')">Read Excerpts</a></li>
+            <li><a href="#" id="nav-contact" onclick="switchPage('contact')">Get In Touch</a></li>
+        </ul>
+    </header>
+
+    <!-- MAIN PAGE CONTAINER -->
+    <main>
+
+        <!-- PAGE 1: HOME PORTFOLIO -->
+        <div id="page-home" class="page active">
+            
+            <!-- Hero Block -->
+            <section class="hero" id="book">
+                <div class="hero-grid">
+                    <div class="hero-info">
+                        <span class="hero-meta section-tag"><i data-lucide="globe" style="width: 14px; height: 14px;"></i> Available Internationally</span>
+                        <h1 class="hero-title-main">Broken shards of <em>night</em></h1>
+                        
+                        <div class="editorial-intro-block">
+                            <p class="highlight">"Every silence has a structure, and every shadow tells a story."</p>
+                            <p>An intricate and atmospheric exploration of youth, identity, and quiet rebellion. Now self-published and distributed globally on Amazon KDP, this debut novel establishes a distinct voice within contemporary literature—challenging traditional prose structures with deep emotional and psychological nuance.</p>
+                        </div>
+                        
+                        <a href="https://www.amazon.com/Broken-shards-night-Marjon-Maksim/dp/B0GZ948P4H" target="_blank" class="btn btn-terracotta">
+                            <i data-lucide="shopping-bag" style="width: 16px; height: 16px;"></i> Purchase on Amazon KDP
+                        </a>
+
+                        <!-- Book Specs Table Grid (Language Integrated) -->
+                        <div class="spec-grid">
+                            <div class="spec-item">
+                                <h5>Format</h5>
+                                <p>Paperback</p>
+                            </div>
+                            <div class="spec-item">
+                                <h5>Linguistic Cadence</h5>
+                                <p>Dual-Language</p>
+                            </div>
+                            <div class="spec-item">
+                                <h5>Distribution</h5>
+                                <p>Amazon KDP</p>
+                            </div>
+                            <div class="spec-item">
+                                <h5>Design Workflow</h5>
+                                <p>Independent</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-image-wrapper">
+                        <img class="hero-image" src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&q=80&w=1200" alt="Mysterious canopy of forest">
+                        <div class="hero-overlay-card">
+                            <h4>"The ledger of the quiet world is open."</h4>
+                            <p style="font-size: 0.75rem; letter-spacing: 3px; color: var(--color-accent); text-transform: uppercase; margin-top: 0.5rem;">Broken Shards of Night — Page 14</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EMPTY SPACE PLUG: Striking Typography Quote Card -->
+            <div class="quote-callout-strip">
+                <blockquote>"We construct monuments out of our shadows, hoping that when the morning light slices through, the silhouette resembles something like a monument of truth."</blockquote>
+                <cite>— Marjon Musta, Selected Reflections</cite>
+            </div>
+
+            <!-- Biography / Author Focus -->
+            <section id="about" style="background-color: #f6eed5;">
+                <div class="bio-grid">
+                    <div class="bio-image-wrapper">
+                        <img class="bio-image" src="https://images.unsplash.com/photo-1498429089284-41f8cf3ffd39?auto=format&fit=crop&q=80&w=1200" alt="Landscape editorial representing open space">
+                    </div>
+                    <div class="bio-content">
+                        <span class="section-tag"><i data-lucide="user" style="width:14px; height:14px;"></i> A Portrait of the Author</span>
+                        <h2 class="section-title">Prose built on silent, sweeping <em>horizons</em>.</h2>
+                        <p>Marjon Musta is an Albanian writer and student residing in Tirana. At fourteen, Marjon has already carved out a distinct literary approach, balancing heavy, atmospheric suspense with deeply grounded psychological portraits of character development.</p>
+                        <p>Favoring natural rhythms and avoiding overly performative prose, his writing focuses on the beauty of life's "glitches"—the unpolished, authentic spaces where human agency clashes with environment. For Marjon, storytelling is a meticulous discipline, crafting characters who seek truth on their own terms.</p>
+                        <p>Beyond creative writing, his hours are spent studying language mechanics, practicing the art of translation, and learning how structural clarity can shape the way we view literature as a global, shared canvas.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Landscape Photo Interlude -->
+            <div class="landscape-photo-strip">
+                <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=1600" alt="Serene countryside sun rise">
+            </div>
+
+            <!-- Architectural Frameworks -->
+            <section>
+                <span class="section-tag"><i data-lucide="compass" style="width:14px; height:14px;"></i> Literary Framework</span>
+                <h2 class="section-title">Core Structural <em>Elements</em></h2>
+                <div class="themes-grid">
+                    <div class="theme-card">
+                        <span class="theme-card-num">01 / CONCEPT</span>
+                        <h3>Rebellion & Truth</h3>
+                        <p>How characters carve their own choices out of rigid systems, exploring the delicate internal friction that leads to personal agency.</p>
+                    </div>
+                    <div class="theme-card" style="border-top-color: var(--color-sunset);">
+                        <span class="theme-card-num">02 / ATMOSPHERE</span>
+                        <h3>The Living Landscape</h3>
+                        <p>Environmental textures acting as secondary characters—heavy, quiet, and deeply integrated into the narrative suspense.</p>
+                    </div>
+                    <div class="theme-card" style="border-top-color: var(--color-sage);">
+                        <span class="theme-card-num">03 / FORM</span>
+                        <h3>The Elegance of Glitches</h3>
+                        <p>Embracing the flawed patterns of memory, choice, and reality, proving that beauty is found where the smooth surface cracks.</p>
+                    </div>
+                </div>
+
+                <!-- NEW REPLACEMENT MODULE: Manuscript Architecture Dashboard -->
+                <div class="architecture-box">
+                    <div class="architecture-header">
+                        <div>
+                            <h4>Manuscript Architecture</h4>
+                            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6); letter-spacing: 1px; margin-top: 0.4rem;">Select a structural aspect to visualize the stylistic calibration of the novel</p>
+                        </div>
+                        <i data-lucide="layers" style="color: var(--color-accent); width: 28px; height: 28px;"></i>
+                    </div>
+                    <div class="metric-split">
+                        <div class="metric-controls">
+                            <button class="metric-btn active" onclick="setMetric('atmospheric', 92, 'A primary focus on geographical textures, environmental silence, and rich emotional layers.')">
+                                <h5>Atmospheric Weight</h5>
+                                <i data-lucide="chevron-right"></i>
+                            </button>
+                            <button class="metric-btn" onclick="setMetric('cadence', 78, 'Deliberate, rhythmic sentences structured with exact CEFR-standard precision.')">
+                                <h5>Lexical Cadence</h5>
+                                <i data-lucide="chevron-right"></i>
+                            </button>
+                            <button class="metric-btn" onclick="setMetric('symmetry', 84, 'A balanced narrative architecture highlighting internal character choice and agency.')">
+                                <h5>Structural Symmetry</h5>
+                                <i data-lucide="chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="metric-visualizer">
+                            <h5 id="metric-title" style="font-size: 1.4rem; font-family: var(--font-serif); margin-bottom: 1rem; color: var(--color-accent);">Atmospheric Weight</h5>
+                            <p id="metric-desc" style="font-size: 0.9rem; line-height: 1.6; color: rgba(255,255,255,0.8); min-height: 50px;">A primary focus on geographical textures, environmental silence, and rich emotional layers.</p>
+                            
+                            <div class="progress-track">
+                                <div class="progress-fill" id="metric-bar" style="width: 92%;"></div>
+                            </div>
+                            <span id="metric-percentage" style="display: block; font-size: 0.75rem; text-align: right; color: var(--color-accent); font-weight: 800; margin-top: 0.8rem; letter-spacing: 1px;">92% DENSITY</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mentorship Panel -->
+            <section style="background-color: #f6eed5;" id="mentorship">
+                <div class="bio-grid" style="grid-template-columns: 1.1fr 0.9fr;">
+                    <div class="bio-content">
+                        <span class="section-tag"><i data-lucide="award" style="width:14px; height:14px;"></i> Intellectual Guidance</span>
+                        <h2 class="section-title" style="font-size: 3.5rem;">The Mentorship of Gladiola Toska</h2>
+                        <p>Every writer needs an anchor—someone who recognizes the raw texture of a voice before it is fully formed. For Marjon, that defining mentor is his extraordinary English teacher, <strong>Gladiola Toska</strong>.</p>
+                        <p>With boundless kindness, dedication, and unwavering support, she built a sanctuary of learning where his creative talent could flourish. She challenged him to treat language with respect and precision, providing the academic foundation and confidence needed to publish his work globally.</p>
+                        <div style="font-family: var(--font-serif); font-style: italic; font-size: 1.5rem; color: var(--color-sunset); border-left: 3px solid var(--color-sunset); padding-left: 2rem; margin-top: 3rem;">
+                            "Her guidance taught me that a great teacher doesn't just deliver lessons; they elevate a student's inner world, letting them see the power of their own words."
+                        </div>
+                    </div>
+                    <div class="bio-image-wrapper" style="height: 650px;">
+                        <img class="bio-image" src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&q=80&w=1200" alt="Open book editorial representing rigorous study">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Language Translation Hub -->
+            <section id="translation">
+                <div class="interactive-container">
+                    <span class="section-tag"><i data-lucide="languages" style="width:14px; height:14px;"></i> Linguistics & Cadence</span>
+                    <h2 class="section-title" style="margin-bottom: 1.5rem;">Rhythmic Cadence Hub</h2>
+                    <p style="color: rgba(9, 12, 11, 0.7); max-width: 800px; margin-bottom: 4rem;">
+                        True translation honors the bones of a language. Marjon avoids artificial or overly sentimental structures, focusing on authentic rhythm, natural flow, and genuine cultural texture. Toggle below to witness these philosophies interact.
+                    </p>
+
+                    <div class="interactive-split">
+                        <div class="trans-box">
+                            <h5 style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: var(--color-sunset); margin-bottom: 1.5rem;">Grounded Albanian (Original)</h5>
+                            <div class="trans-quote" id="albanian-text">"Vallëzimi i artë i gjetheve të tetorit pëshpërit qetësinë e fshatit tonë."</div>
+                            <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5;">Capturing regional stillness</p>
+                        </div>
+
+                        <div class="trans-box" style="border-top-color: var(--color-sage);">
+                            <h5 style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: var(--color-sage); margin-bottom: 1.5rem;">Rhythmic English Translation</h5>
+                            <div class="trans-quote" id="english-text">"The golden dance of October leaves whispers the silence of our village."</div>
+                            <div style="display: flex; gap: 1.5rem;">
+                                <button class="btn-minimal active" id="btn-trans-1" onclick="toggleTranslation('traditional')">Traditional</button>
+                                <button class="btn-minimal" id="btn-trans-2" onclick="toggleTranslation('literary')">Literary</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- PAGE 2: EXCERPTS READER -->
+        <div id="page-excerpts" class="page">
+            <section>
+                <span class="section-tag"><i data-lucide="book-open" style="width:14px; height:14px;"></i> Interactive Library</span>
+                <h2 class="section-title">Selected Novel <em>Excerpts</em></h2>
+                
+                <div class="reader-container">
+                    <div class="chapter-sidebar">
+                        <h3>Index of Shards</h3>
+                        <ul class="chapter-list">
+                            <li><button class="chapter-btn active" id="btn-ch1" onclick="selectChapter(1)">Chapter I: The Canopy Speaks</button></li>
+                            <li><button class="chapter-btn" id="btn-ch2" onclick="selectChapter(2)">Chapter II: The Structural Silence</button></li>
+                            <li><button class="chapter-btn" id="btn-ch3" onclick="selectChapter(3)">Chapter III: Regional Ghosts</button></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="excerpt-viewer">
+                        <div id="excerpt-display">
+                            <h2 class="excerpt-title">Chapter I: The Canopy Speaks</h2>
+                            <div class="excerpt-content">
+                                <p>The trees in the valley did not sway; they waited. They were dense, dark-ribbed arches of green that seemed to swallow up the autumn wind before it could strike the cold soil. In those moments when the clouds grew heavy over Tirana's distant edge, the quietude returned, thick and unbreakable.</p>
+                                <p>He kept his hands tucked deep into his pockets, listening to the small crunch of dry twigs underfoot. There was a rhythm here—a cold, mechanical heartbeat that belonged exclusively to the mountain. It was far cleaner than the performative chatter of the city streets, a simple pattern written in leaves and dark limestone.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE 3: CONTACT & INQUIRIES HUB -->
+        <div id="page-contact" class="page">
+            <section>
+                <div class="contact-grid">
+                    <div class="contact-info-panel">
+                        <span class="section-tag"><i data-lucide="message-square" style="width:14px; height:14px;"></i> Collaborative Inquiries</span>
+                        <h2>Let us speak of <em>mechanics</em> & story.</h2>
+                        <p style="font-size: 1.1rem; font-weight: 300; color: rgba(9,12,11,0.7); line-height: 1.9; margin-bottom: 3rem;">
+                            Whether you represent a global publishing imprint, wish to discuss analytical translations, or simply seek to connect over architectural creative structures—reach out through this direct ledger portal.
+                        </p>
+                        
+                        <div class="info-card-list">
+                            <div class="info-detail-item">
+                                <div class="info-icon-box">
+                                    <i data-lucide="mail" style="width: 22px; height: 22px;"></i>
+                                </div>
+                                <div class="info-detail-text">
+                                    <h4>Direct Correspondence</h4>
+                                    <p><a href="mailto:mustamarjon0@gmail.com" style="color: inherit; text-decoration: none;">mustamarjon0@gmail.com</a></p>
+                                </div>
+                            </div>
+
+                            <div class="info-detail-item" style="border-left-color: var(--color-merlot);">
+                                <div class="info-icon-box" style="background-color: rgba(107, 31, 31, 0.1); color: var(--color-merlot);">
+                                    <i data-lucide="phone" style="width: 22px; height: 22px;"></i>
+                                </div>
+                                <div class="info-detail-text">
+                                    <h4>Direct Voice & WhatsApp</h4>
+                                    <p><a href="tel:+355688198203" style="color: inherit; text-decoration: none;">+355 68 819 8203</a></p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-detail-item" style="border-left-color: var(--color-sage);">
+                                <div class="info-icon-box" style="background-color: var(--color-accent-muted); color: var(--color-sage);">
+                                    <i data-lucide="map-pin" style="width: 22px; height: 22px;"></i>
+                                </div>
+                                <div class="info-detail-text">
+                                    <h4>Primary Residence</h4>
+                                    <p>Tirana, Albania</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-card">
+                        <h3 style="font-family: var(--font-serif); font-size: 2.2rem; font-weight: 400; margin-bottom: 3rem; color: var(--color-merlot);">Send Message</h3>
+                        <form id="contact-form" onsubmit="event.preventDefault(); alert('Your message has been logged in the system.');">
+                            <div class="form-group">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-input" placeholder="e.g., Jane Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-input" placeholder="e.g., jane@example.com" value="mustamarjon0@gmail.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Your Message</label>
+                                <textarea class="form-input" rows="5" placeholder="Share your thoughts..." required style="resize: none;"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-terracotta" style="width: 100%; justify-content: center;">Send Letter</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">Marjon Musta</div>
+        <div class="footer-nav">
+            <a href="#" onclick="switchPage('home')">Home Portfolio</a>
+            <a href="#" onclick="switchPage('excerpts')">Read Excerpts</a>
+            <a href="#" onclick="switchPage('contact')">Get In Touch</a>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 Marjon Musta. Designed Editorial Experience. Amazon KDP Independent Publication.</span>
+            <span style="font-size: 0.65rem; opacity: 0.6; letter-spacing: 1px;">Email: mustamarjon0@gmail.com | Tel: +355 68 819 8203</span>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Scroll progress bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progress-bar').style.width = scrolled + '%';
+        });
+
+        // Tab Switching Logic (Single Page App approach)
+        function switchPage(pageId) {
+            // Remove active classes
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            
+            // Set targets active
+            document.getElementById('page-' + pageId).classList.add('active');
+            document.getElementById('nav-' + pageId).classList.add('active');
+            
+            // Scroll to top on page change
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // Interactive Metric Switcher Logic
+        const metrics = {
+            atmospheric: {
+                title: "Atmospheric Weight",
+                desc: "A primary focus on geographical textures, environmental silence, and rich emotional layers.",
+                percent: 92,
+                label: "92% DENSITY"
+            },
+            cadence: {
+                title: "Lexical Cadence",
+                desc: "Deliberate, rhythmic sentences structured with exact CEFR-standard precision.",
+                percent: 78,
+                label: "78% RYTHMIC CALIBRATION"
+            },
+            symmetry: {
+                title: "Structural Symmetry",
+                desc: "A balanced narrative architecture highlighting internal character choice and agency.",
+                percent: 84,
+                label: "84% BALANCE FACTOR"
+            }
+        };
+
+        function setMetric(key, percent, desc) {
+            // Manage UI Buttons
+            const buttons = document.querySelectorAll('.metric-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Update Dynamic Visuals
+            const selected = metrics[key];
+            document.getElementById('metric-title').innerText = selected.title;
+            document.getElementById('metric-desc').innerText = selected.desc;
+            document.getElementById('metric-bar').style.width = selected.percent + '%';
+            document.getElementById('metric-percentage').innerText = selected.label;
+        }
+
+        // Excerpts Data Hub
+        const chapters = {
+            1: {
+                title: "Chapter I: The Canopy Speaks",
+                p1: "The trees in the valley did not sway; they waited. They were dense, dark-ribbed arches of green that seemed to swallow up the autumn wind before it could strike the cold soil. In those moments when the clouds grew heavy over Tirana's distant edge, the quietude returned, thick and unbreakable.",
+                p2: "He kept his hands tucked deep into his pockets, listening to the small crunch of dry twigs underfoot. There was a rhythm here—a cold, mechanical heartbeat that belonged exclusively to the mountain. It was far cleaner than the performative chatter of the city streets, a simple pattern written in leaves and dark limestone."
+            },
+            2: {
+                title: "Chapter II: The Structural Silence",
+                p1: "Silence is never truly empty. It is constructed from the bricks of small noises we choose to ignore: the distant rumble of regional engines, the scratch of paper, the quiet hum of thoughts. Gladiola had often remarked that to write was to build scaffolds across these empty gaps.",
+                p2: "He sat at the low wooden desk as twilight turned the room into amber streaks. The ink on the page dried slowly. Every line he drafted felt like a small, quiet act of sabotage against the chaos of the outside world, setting a permanent structure to memories that wanted to slip away."
+            },
+            3: {
+                title: "Chapter III: Regional Ghosts",
+                p1: "They spoke of regional legends as if they belonged to the soil itself, rather than the people who tilled it. October came in a swift wave of heavy rains, washing away the thin dust layers of summer and leaving the raw bedrock exposed. It was beautiful, brutal, and utterly real.",
+                p2: "To look at a landscape and see the history of its quiet resistance is the starting point of craft. He realized then that characters, like trees, grow stronger when they lean into the heavy wind rather than trying to hide behind walls built by others."
+            }
+        };
+
+        function selectChapter(chNum) {
+            document.querySelectorAll('.chapter-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-ch' + chNum).classList.add('active');
+            
+            const excerpt = chapters[chNum];
+            const contentHTML = `
+                <h2 class="excerpt-title">${excerpt.title}</h2>
+                <div class="excerpt-content">
+                    <p>${excerpt.p1}</p>
+                    <p style="margin-top: 2rem;">${excerpt.p2}</p>
+                </div>
+            `;
+            document.getElementById('excerpt-display').innerHTML = contentHTML;
+        }
+
+        // Cadence / Translation Interactive Database
+        const translations = {
+            traditional: {
+                sq: "Vallëzimi i artë i gjetheve të tetorit pëshpërit qetësinë e fshatit tonë.",
+                en: "The golden dance of October leaves whispers the silence of our village."
+            },
+            literary: {
+                sq: "Në heshtjen e fshatit, çdo fletë e rënë në vjeshtë tregon një histori të vjetër.",
+                en: "Within the silence of the countryside, every fallen autumn leaf tells an ancient story."
+            }
+        };
+
+        function toggleTranslation(type) {
+            document.getElementById('albanian-text').innerText = translations[type].sq;
+            document.getElementById('english-text').innerText = translations[type].en;
+            
+            document.getElementById('btn-trans-1').classList.remove('active');
+            document.getElementById('btn-trans-2').classList.remove('active');
+            
+            if(type === 'traditional') {
+                document.getElementById('btn-trans-1').classList.add('active');
+            } else {
+                document.getElementById('btn-trans-2').classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
+    
+  </body>
+  
+</html>
